@@ -122,7 +122,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function hardware_simulator(){
+async function hardwareSimulator(){
   for (var i = 0; i < dataAmount; i++) {
     flightSimulation = (latitudeSimulation(i).toString()+','+
               longitudeSimulation(i).toString()+','+
@@ -139,4 +139,4 @@ async function hardware_simulator(){
   }
 }
 
-hardware_simulator();
+hardwareSimulator();
