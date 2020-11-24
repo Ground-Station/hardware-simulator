@@ -1,0 +1,17 @@
+{
+  "name": "simulation",
+  "version": "0.0.1",
+  "description": "simulation",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {
+    "mathjs": "^8.0.1"
+  },
+  "devDependencies": {
+    "mathjs": "^8.0.1"
+  }
+}
