@@ -1,8 +1,16 @@
 const fs = require('fs')
 
-var missionDuration = 8;
-var dataAmount = 60 * 2 * missionDuration;
+// fueling
+var fuelingDuration = 2; // in minutes
+var fuelingDataPerSecond = 2;
+var fuelingDataAmount = 60*fuelingDataPerSecond*fuelingDuration;
 
+// flight
+var flightDuration = 8; // in minutes
+var flightDataPerSecond = 1;
+var flightDataAmount = 60*flightDataPerSecond*flightDuration;
+
+// variables
 var height = 0;
 var pressure = 110000;
 var temperature = 23;
@@ -23,7 +31,7 @@ function format (number, length, afterDot){
 }
 
 function heightSimulation(i){
-  if (i <= (dataAmount*0.4)){
+  if (i <= (flightDataAmount*0.4)){
     height = (height+(Math.random()*10)+1)
     if (height > 1200){
       return format(1100, 7, 2)
@@ -41,7 +49,7 @@ function heightSimulation(i){
 }
 
 function pressureSimulation(i){
-  if (i <= (dataAmount*0.4)){
+  if (i <= (flightDataAmount*0.4)){
     pressure = (pressure-(80*(Math.random()*10)+1))
     if (pressure < 30000){
       return format(30000, 9, 2)
@@ -60,7 +68,7 @@ function pressureSimulation(i){
 
 
 function temperatureSimulation(i){
-  if (i <= (dataAmount*0.5)){
+  if (i <= (flightDataAmount*0.5)){
     temperature = temperature+(0.2*Math.random())
     return format(temperature, 4, 2)
   } else {
@@ -93,7 +101,7 @@ function longitudeSimulation(i){
 
 
 function velocitySimulation(i){
-  if (i <= (dataAmount*0.4)){
+  if (i <= (flightDataAmount*0.4)){
     velocity = (velocity+((0.2*Math.random())))
     if (velocity > 25){
       return format(25, 6, 2)
@@ -112,8 +120,10 @@ function velocitySimulation(i){
 
 
 function weightSimulation(i){
-  if (i <= (dataAmount*0.17)){
+  if (i <= (fuelingDataAmount*0.35)){
     weight = weight+(0.1*Math.random())
+    return format(weight, 4, 2)
+  }else{
     return format(weight, 4, 2)
   }
 }
@@ -123,7 +133,15 @@ function sleep(ms) {
 }
 
 async function hardwareSimulator(){
-  for (var i = 0; i < dataAmount; i++) {
+  for (var i = 0; i < fuelingDataAmount; i++) {
+    fuelingSimulation = (weightSimulation(i).toString()+'\r\n');
+    console.log(fuelingSimulation);
+    fs.appendFile('fuelingSimulation.txt', fuelingSimulation, (err) => { 
+      if (err) throw err; 
+  }) 
+    await sleep(100);
+  }
+  for (var i = 0; i < flightDataAmount; i++) {
     flightSimulation = (latitudeSimulation(i).toString()+','+
               longitudeSimulation(i).toString()+','+
               temperatureSimulation(i).toString()+','+
@@ -135,7 +153,7 @@ async function hardwareSimulator(){
     fs.appendFile('flightSimulation.txt', flightSimulation, (err) => { 
       if (err) throw err; 
   }) 
-    await sleep(500);
+    await sleep(100);
   }
 }
 
