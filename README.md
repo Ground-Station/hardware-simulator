@@ -3,6 +3,8 @@
 
 Repositório utilizado para criação do script de simulação do hardware.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Documentação
 
 A documentação do projeto está disponível no repositório está disponível [AQUI!](https://github.com/Ground-Station/Documentation)
